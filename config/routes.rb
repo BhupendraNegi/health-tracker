@@ -10,6 +10,6 @@ Rails.application.routes.draw do
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
-  get '*path', 'home#index', via: :all
-
+  get '*path', to: 'home#index', via: :all
+  match '/', to: 'home#index', via: :all
 end
