@@ -75,6 +75,8 @@ GEM
       responders
       warden (~> 1.2.3)
     erubi (1.10.0)
+    fast_jsonapi (1.5)
+      activesupport (>= 4.2)
     ffi (1.15.5)
     globalid (1.0.0)
       activesupport (>= 5.0)
@@ -194,6 +196,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
   devise (~> 4.8, >= 4.8.1)
+  fast_jsonapi
   jbuilder (~> 2.7)
   listen (~> 3.3)
   mysql2 (~> 0.5)
