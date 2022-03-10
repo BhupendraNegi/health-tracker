@@ -1,6 +1,8 @@
 module api
 	module v1
 		class GlucoseReadingsController < ApplicationController
+			before_action :authenticate_user!
+
 		  def index
 		    glucose_readings = current_user.glucose_readings
 
