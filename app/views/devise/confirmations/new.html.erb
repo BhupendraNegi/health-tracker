@@ -1,20 +1,19 @@
-<div class="container">
-  <div class="d-flex justify-content-center my-4">
-    <div class="card mt-4">
-      <div class="container m-4 p-4">
+<div class="container my-4">
+  <%= render "devise/shared/error_messages", resource: resource %>
+  <div class="d-flex justify-content-center">
+    <div class="card m-4 p-4">
+      <div class="container">
 
         <h2>Resend confirmation instructions</h2>
 
         <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
-          <%= render "devise/shared/error_messages", resource: resource %>
 
           <div class="field my-3">
-            <%= f.label :email %><br />
-            <%= f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
+            <%= f.email_field :email, class: "form-control", placeholder: "Email", autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
           </div>
 
           <div class="actions my-4">
-            <%= f.submit "Resend confirmation instructions" %>
+            <%= f.submit "Resend confirmation instructions", class: "btn btn-secondary" %>
           </div>
         <% end %>
 

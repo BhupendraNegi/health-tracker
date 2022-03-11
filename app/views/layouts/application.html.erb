@@ -16,10 +16,15 @@
 
   <body>
     <%= render partial: "widgets/navigation_bar", locals: { record: 1 } %>
+    <% if notice.present? || alert.present? %>
+      <div class="container d-flex justify-content-center mt-2">
+        <div class="notice <%= notice.present? ? 'alert alert-success alert-dismissible fade show' : '' %>" role="alert"><%= notice %></div>
+        <div class="alert <%= alert.present? ? 'alert alert-danger alert-dismissible fade show' : '' %>" role="alert"><%= alert %></div>
+      </div>
+    <% end %>
     <%= yield %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <footer class="bg-dark text-white text-center py-4 fixed-bottom ">
+
+  <footer class="bg-dark text-white text-center py-4 fixed-bottom ">
       <h6> @ Copyrights <%= Time.zone.now.year %> </h6>
     </footer>
   </body>
