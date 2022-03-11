@@ -8,14 +8,8 @@ import Reading from './Reading/Reading'
 const AppRouter = () => (
   <Router>
     <Routes>
-      <Route
-        render={({ location }) => (
-          <Switch location={location}>
-            <Route exact path="/readings" component={Readings} />
-            <Route exact path="/readings/:id" component={Reading} />
-          </Switch>
-        )}
-      />
+      <Route exact path="/readings" element={<Readings />} />
+      <Route exact path="/readings/:id" element={<Reading />} />
     </Routes>
   </Router>
 );
