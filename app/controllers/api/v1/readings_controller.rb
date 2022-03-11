@@ -1,12 +1,13 @@
-module api
-	module v1
+module Api
+	module V1
 		class ReadingsController < ApplicationController
 			before_action :authenticate_user!
 
 		  def index
 		    readings = current_user.readings
-
-		    render json: ReadingSerializer.new(readings).serialized_json
+		    a = ReadingSerializer.new(readings).serialized_json
+		    puts a
+		    render json: a
 		  end
 
 		  def show
