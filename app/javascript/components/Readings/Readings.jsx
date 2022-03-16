@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'
+import axios from 'axios';
+import AddReading from './AddReading';
+import EditReading from './EditReading';
+import Reports from './Reports';
+
 
 const Readings = () => {
 	const [readings, setReadings] = useState([])
@@ -27,9 +31,14 @@ const Readings = () => {
 
 	return (
 		<div>
-			<div className="card">
+			<AddReading />
+			<div className="container">
+				<h2>
+					Daily Data
+				</h2>
 				{data}
 			</div>
+			<Reports />
 		</div>
 	)
 

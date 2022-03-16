@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Switch } from 'react-router-dom';
 
 import Readings from './Readings/Readings'
-import Reading from './Reading/Reading'
+import Reading from './Readings/Reading'
 
 
 const AppRouter = () => (
