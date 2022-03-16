@@ -16,13 +16,21 @@ module Api
 		    render json: ReadingSerializer.new(reading).serialized_json
 		  end
 
+		  def new
+		  end
+
 		  def create
-		  	reading = Reading.new(reading_params)
+		  	reading = Reading.new(reading_params.merge(user_id: current_user.id))
 		  	if reading.save
 		  		render json: ReadingSerializer.new(reading).serialized_json
 		  	else
 		  		render json: { error: reading.errors.messages }, status: 422
 		  	end
+		  end
+
+		  def edit
+		  	reading = Reading.find_by(id: params[:id])
+		  	render json: ReadingSerializer.new(reading).serialized_json
 		  end
 
 		  def update
@@ -46,7 +54,7 @@ module Api
 		  private
 
 	  		def reading_params
-	  			params.requires(:reading).permit(:level)
+	  			params.fetch(:reading, {}).permit(:level)
 	  		end
 
 		end

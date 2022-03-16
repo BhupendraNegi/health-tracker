@@ -5,7 +5,7 @@
 				<h1 class="display-1">Sweety </h1>
 				<p class="text-secondary"><em>Simple solution to track your blood glucose readings</em></p>
 				<% if user_signed_in? %>
-					<%= link_to "<button type='button' class='btn btn-success btn-lg rounded-pill'>Get Started</button>".html_safe, readings_path %>
+					<%= link_to "<button type='button' class='btn btn-success btn-lg rounded-pill'>Get Started</button>".html_safe, readings_path, method: :get %>
 				<% else %>
 					<%= link_to "<button type='button' class='btn btn-success btn-lg rounded-pill'>Get Started</button>".html_safe, new_user_registration_path %>
 				<% end %> 

@@ -23,11 +23,15 @@ const Readings = () => {
   }, [])
 
   const data = readings.map( (reading, index) => {
-    const { level, created_at } = reading.attributes
+    const { id, level, created_at } = reading.attributes
     return (
-  		<div className="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+  		<div className="col-xs-12 col-sm-12 col-md-6 col-lg-6" key={id}>
     		<p>
     			{level}
+	    		<Link replace to={`/readings/${id}/edit`} className="mx-2">
+	        	<i className="fa fa-edit mx-1"></i>
+	        	Edit
+	        </Link>
     		</p>
     		 <p>
     			{created_at}
