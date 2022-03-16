@@ -25,24 +25,26 @@ const Readings = () => {
   const data = readings.map( (reading, index) => {
     const { id, level, created_at } = reading.attributes
     return (
-  		<div className="col-xs-12 col-sm-12 col-md-6 col-lg-6" key={id}>
-    		<p>
-    			{level}
-	    		<Link replace to={`/readings/${id}/edit`} className="mx-2">
-	        	<i className="fa fa-edit mx-1"></i>
-	        	Edit
-	        </Link>
-    		</p>
-    		 <p>
-    			{created_at}
-    		</p>
+  		<div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 " key={id}>
+  			<div className="border rounded p-3 m-2">
+	  		  <span>
+	    			{created_at}
+	  				<Link replace to={`/readings/${id}/edit`} className="mx-2">
+		        	<i className="fa fa-edit mx-1"></i>
+		        </Link>
+	    		</span>
+    			<h2>
+    				{level} 
+
+	        </h2>
+	    	</div>
     	</div>
     )
   })
 
 	return (
 		<div>
-			<div className="my-4">
+			<div className="container my-4">
         <Link replace to="/readings/new" className="btn btn-sm btn-primary">
         	<i className="fa fa-plus-circle mx-1"></i>
         	Add New Reading
@@ -53,7 +55,7 @@ const Readings = () => {
 					<h4>
 						Daily Data
 					</h4>
-					<div className="row p-2 border rounded">
+					<div className="row">
 						{data}
 					</div>
 				</div>

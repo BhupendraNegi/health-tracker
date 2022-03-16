@@ -19,6 +19,9 @@ export default function FormReading (
 	const { id } = useParams();
   let navigate = useNavigate();
   const [apiLoading, setApiLoading] = useState(false);
+  const [displayMessage, setDisplayMessage] = useState(false);
+  const [message, setMessage] = useState('');
+  const [messageType, setMessageType] = useState('');
   const [reading, setReading] = useState({ level: 0 });
 
   const changeReadingState = (valuesToChange) => {
@@ -32,7 +35,6 @@ export default function FormReading (
 	    .then((resp) => {
 	    	setReading(resp.data.data.attributes);
 	    	setApiLoading(false);
-	    	// console.log(resp.data.data)
 	    })
 	    .catch((data) => {
 	    	console.log('error', data);
@@ -60,22 +62,17 @@ export default function FormReading (
         },
       ).then((resp) => resp.json())
         .then((response) => {
-          if (response.success) {
-            history.goBack();
-            navigate(-1);
-            // dispathPageAlert(dispatch, response.message, 'flashnotice alert alert-success');
-          } else {
-            // dispathPageAlert(dispatch, response.message, 'flasherror alert alert-danger');
-          }
+        	console.log(response);
+        	setMessage(`Your Sugar Reading ${formFor}ed Sucessfully`);
+        	setMessageType('success');
+          setDisplayMessage(true);
           setApiLoading(false);
         })
-        .catch(() => {
-          // dispathPageAlert(
-          //   dispatch,
-          //   'An error occured while submitting form. Please try again.',
-          //   'flasherror alert alert-danger',
-          // );
+        .catch((error) => {
+          setDisplayMessage(true);
           setApiLoading(false);
+          setMessage(error);
+          setMessageType('danger');
         });
     }
   };
@@ -84,23 +81,32 @@ export default function FormReading (
   return (
     <>
       { !apiLoading && (
-        <AvForm action={actionPath} id="alias_college_form" className="w-25" onSubmit={handleSubmit}>
-          <AvField
-            name="reading[level]"
-            id="level"
-            label="Level"
-            type="number"
-            onChange={(e) => changeReadingState({ level: e.target.value })}
-            value={reading.level}
-            validate={{ min: { value: 0 } }}
-          />
-          <Button
-            className="btn btn-elitmus-blue mx-2"
-            type="submit"
-          >
-            {formFor}
-          </Button>
-        </AvForm>
+      	<>
+	      	{ displayMessage && (
+      			<div class="container d-flex justify-content-center mt-2">
+        			<div class={`alert alert-${messageType}`} role="alert">
+        				{message}
+        			</div>
+      			</div>
+	      	)}
+	        <AvForm action={actionPath} id="alias_college_form" className="w-25" onSubmit={handleSubmit}>
+	          <AvField
+	            name="reading[level]"
+	            id="level"
+	            label="Level"
+	            type="number"
+	            onChange={(e) => changeReadingState({ level: e.target.value })}
+	            value={reading.level}
+	            validate={{ min: { value: 0 } }}
+	          />
+	          <Button
+	            className="btn btn-elitmus-blue mx-2"
+	            type="submit"
+	          >
+	            {formFor}
+	          </Button>
+	        </AvForm>
+	      </>
       )}
     </>
   );
