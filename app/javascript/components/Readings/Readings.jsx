@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
 import axios from 'axios';
-import AddReading from './AddReading';
-import EditReading from './EditReading';
+// import AddReading from './AddReading';
+// import EditReading from './EditReading';
 import Reports from './Reports';
 
 
@@ -37,7 +38,12 @@ const Readings = () => {
 
 	return (
 		<div>
-			<AddReading />
+			<div className="my-4">
+        <Link replace to="/readings/new" className="btn btn-sm btn-primary">
+        	<i className="fa fa-plus-circle mx-1"></i>
+        	Add New Reading
+        </Link>
+      </div>
 			{ apiResponse && (
 				<div className="container">
 					<h4>

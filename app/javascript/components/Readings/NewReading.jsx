@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AddReading = () => {
+const NewReading = () => {
 	return (
 		<div className="container">
 			<h4>
@@ -13,4 +13,4 @@ const AddReading = () => {
 
 }
 
-export default AddReading;
+export default NewReading;
