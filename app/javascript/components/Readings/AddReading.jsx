@@ -3,9 +3,11 @@ import React from 'react';
 const AddReading = () => {
 	return (
 		<div className="container">
-			<h2>
+			<h4>
 				Enter Daily Data
-			</h2>
+			</h4>
+			<div className="row p-2 border rounded">
+			</div>
 		</div>
 	)
 

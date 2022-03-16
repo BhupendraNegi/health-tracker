@@ -7,18 +7,24 @@ import Reports from './Reports';
 
 const Readings = () => {
 	const [readings, setReadings] = useState([])
+	const [apiResponse, setApiResponse] = useState(false);
 
   useEffect(() => {
     axios.get('/api/v1/readings.json')
-    .then( resp => setReadings(resp.data.data))
-    .catch( data => console.log('error', data))
+    .then((resp) => {
+    	setReadings(resp.data.data);
+    	setApiResponse(true);
+    })
+    .catch((data) => {
+    	console.log('error', data);
+    	setApiResponse(false);
+    })
   }, [])
 
   const data = readings.map( (reading, index) => {
     const { level, created_at } = reading.attributes
-
     return (
-    	<div>
+  		<div className="col-xs-12 col-sm-12 col-md-6 col-lg-6">
     		<p>
     			{level}
     		</p>
@@ -32,12 +38,16 @@ const Readings = () => {
 	return (
 		<div>
 			<AddReading />
-			<div className="container">
-				<h2>
-					Daily Data
-				</h2>
-				{data}
-			</div>
+			{ apiResponse && (
+				<div className="container">
+					<h4>
+						Daily Data
+					</h4>
+					<div className="row p-2 border rounded">
+						{data}
+					</div>
+				</div>
+			)}
 			<Reports />
 		</div>
 	)

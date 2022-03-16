@@ -3,9 +3,9 @@ import React from 'react';
 const Reports = () => {
 	return (
 		<div className="container">
-			<h2>
+			<h4>
 				Reports
-			</h2>
+			</h4>
 		</div>
 	)
 
