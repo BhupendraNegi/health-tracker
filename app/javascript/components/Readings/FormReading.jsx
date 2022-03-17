@@ -18,6 +18,7 @@ export default function FormReading (
 
 	const { id } = useParams();
   let navigate = useNavigate();
+  const [redirectNow, setRedirectNow] = useState(false);
   const [apiLoading, setApiLoading] = useState(false);
   const [displayMessage, setDisplayMessage] = useState(false);
   const [message, setMessage] = useState('');
@@ -62,9 +63,17 @@ export default function FormReading (
         },
       ).then((resp) => resp.json())
         .then((response) => {
-        	console.log(response);
-        	setMessage(`Your Sugar Reading ${formFor}ed Sucessfully`);
-        	setMessageType('success');
+        	if (response.error) {
+            setMessage(response.error.value);
+            setMessageType('danger');
+          } else {
+            setMessage(`Your Sugar Reading ${formFor}ed Sucessfully`);
+            setMessageType('success');
+            setTimeout(() => {
+              console.log('Hello, World!')
+              navigate('/readings');
+            }, 800);
+          }
           setDisplayMessage(true);
           setApiLoading(false);
         })
@@ -82,22 +91,16 @@ export default function FormReading (
     <>
       { !apiLoading && (
       	<>
-	      	{ displayMessage && (
-      			<div class="container d-flex justify-content-center mt-2">
-        			<div class={`alert alert-${messageType}`} role="alert">
-        				{message}
-        			</div>
-      			</div>
-	      	)}
 	        <AvForm action={actionPath} id="alias_college_form" className="w-25" onSubmit={handleSubmit}>
 	          <AvField
 	            name="reading[level]"
 	            id="level"
-	            label="Level"
+	            label="Glucose Level"
 	            type="number"
 	            onChange={(e) => changeReadingState({ level: e.target.value })}
 	            value={reading.level}
-	            validate={{ min: { value: 0 } }}
+	            validate={{ min: { value: 0 }, required: { value: true, errorMessage: 'Glucose level can\'t be blank' }, }}
+
 	          />
 	          <Button
 	            className="btn btn-elitmus-blue mx-2"
@@ -106,6 +109,13 @@ export default function FormReading (
 	            {formFor}
 	          </Button>
 	        </AvForm>
+          { displayMessage && (
+            <div className="container d-flex justify-content-center mt-2">
+              <div className={`alert alert-${messageType}`} role="alert">
+                {message}
+              </div>
+            </div>
+          )}
 	      </>
       )}
     </>

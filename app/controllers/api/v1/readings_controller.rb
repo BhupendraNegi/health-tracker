@@ -5,9 +5,7 @@ module Api
 
 		  def index
 		    readings = current_user.readings
-		    a = ReadingSerializer.new(readings).serialized_json
-		    puts a
-		    render json: a
+		    render json: ReadingSerializer.new(readings).serialized_json
 		  end
 
 		  def show
