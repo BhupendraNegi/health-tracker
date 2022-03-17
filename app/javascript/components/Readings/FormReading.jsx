@@ -64,7 +64,7 @@ export default function FormReading (
       ).then((resp) => resp.json())
         .then((response) => {
         	if (response.error) {
-            setMessage(response.error.value);
+            setMessage(response.error.base);
             setMessageType('danger');
           } else {
             setMessage(`Your Sugar Reading ${formFor}ed Sucessfully`);

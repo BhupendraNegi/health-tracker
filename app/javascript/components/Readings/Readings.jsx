@@ -33,7 +33,7 @@ const Readings = () => {
     const { id, level, created_at } = reading.attributes
     return (
   		<div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 " key={id}>
-  			<div className="border rounded p-3 m-2">
+  			<div className="border rounded p-2 m-2">
 	  		  <span>
 	    			{created_at}
 	  				<Link replace to={`/readings/${id}/edit`} className="mx-2">
@@ -51,7 +51,7 @@ const Readings = () => {
 
 	return (
 		<div>
-			<div className="container my-4">
+			<div className="container mb-4">
         <Link replace to="/readings/new" className="btn btn-sm btn-primary">
         	<i className="fa fa-plus-circle mx-1"></i>
         	Add New Reading
@@ -60,12 +60,13 @@ const Readings = () => {
 			{ apiResponse && (
 				<div className="container">
 					<h4>
-						Daily Data
+						Glucose Reading Analysis
 					</h4>
+					<hr />
 					<div className="row">
 						<div className="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-  						<div className="border rounded p-3 m-2">
-								<table class="table table-borderless">
+  						<div className="border rounded p-1 m-2">
+								<table class="table table-borderless m-0">
 								  <tbody>
 								    <tr>
 								      <td>
@@ -105,7 +106,7 @@ const Readings = () => {
 				      </div>
 				    </div>
 					</div>
-					<div className="row">
+					<div className="row mb-4">
 						{reading_levels}
 					</div>
 				</div>
