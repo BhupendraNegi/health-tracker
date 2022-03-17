@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import axios from 'axios';
-// import AddReading from './AddReading';
-// import EditReading from './EditReading';
-
+import { addDays } from 'date-fns';
+import { DateRangePicker } from 'react-date-range';
+import AverageReading from './AverageReading';
+import SingleReading from './SingleReading';
 
 const Readings = () => {
 	const [readings, setReadings] = useState([])
@@ -11,6 +12,13 @@ const Readings = () => {
 	const [maximum, setMaximum] = useState(0)
 	const [average, setAverage] = useState(0)
 	const [apiResponse, setApiResponse] = useState(false);
+	const [state, setState] = useState([
+	  {
+	    startDate: new Date(),
+	    endDate: addDays(new Date(), 7),
+	    key: 'selection'
+	  }
+	]);
 
 
   useEffect(() => {
@@ -27,25 +35,18 @@ const Readings = () => {
     	console.log('error', data);
     	setApiResponse(false);
     })
-  }, [])
+  }, []);
+
 
   const reading_levels = readings.map( (reading, index) => {
     const { id, level, created_at } = reading.attributes
     return (
-  		<div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 " key={id}>
-  			<div className="border rounded p-2 m-2">
-	  		  <span>
-	    			{created_at}
-	  				<Link replace to={`/readings/${id}/edit`} className="mx-2">
-		        	<i className="fa fa-edit mx-1"></i>
-		        </Link>
-	    		</span>
-    			<h2>
-    				{level} 
-    				<small class="text-muted"> mg/dl </small>
-	        </h2>
-	    	</div>
-    	</div>
+    	<SingleReading
+    		id={id}
+    		level={level}
+    		created_at={created_at}
+    		key={id}
+    	/>
     )
   })
 
@@ -57,55 +58,27 @@ const Readings = () => {
         	Add New Reading
         </Link>
       </div>
+      <DateRangePicker
+			  onChange={item => setState([item.selection])}
+			  showSelectionPreview={true}
+			  moveRangeOnFirstSelection={false}
+			  months={2}
+			  ranges={state}
+			  direction="horizontal"
+			  preventSnapRefocus={true}
+			  calendarFocus="backwards"
+			/>
 			{ apiResponse && (
 				<div className="container">
 					<h4>
 						Glucose Reading Analysis
 					</h4>
 					<hr />
-					<div className="row">
-						<div className="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-  						<div className="border rounded p-1 m-2">
-								<table class="table table-borderless m-0">
-								  <tbody>
-								    <tr>
-								      <td>
-								      	Minimum Reading :
-								      </td>
-								      <td>
-								      	<h6 class="mt-1">
-			    								{minimum}
-			    								<small class="text-muted"> mg/dl </small>
-			    							</h6>
-								      </td>
-								    </tr>
-								    <tr>
-								      <td>
-								      	Maximum Reading :
-								      </td>
-								      <td>
-								      	<h6 class="mt-1">
-			    								{maximum}
-			    								<small class="text-muted"> mg/dl </small>
-			    							</h6>
-								      </td>
-								    </tr>
-								    <tr>
-								      <td>
-								      	Average Reading :
-								      </td>
-								      <td>
-								      	<h6 class="mt-1">
-				    							{average}
-				    							<small class="text-muted"> mg/dl </small>
-			    							</h6>
-								      </td>
-								    </tr>
-								  </tbody>
-								</table>
-				      </div>
-				    </div>
-					</div>
+					<AverageReading
+					  minimum={minimum}
+  					maximum={maximum}
+  					average={average}
+  				/>
 					<div className="row mb-4">
 						{reading_levels}
 					</div>

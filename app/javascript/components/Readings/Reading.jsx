@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from "react-router-dom";
 import axios from 'axios';
+import SingleReading from './SingleReading';
 
 const Reading = () => {
 	const { id } = useParams();
@@ -23,6 +24,12 @@ const Reading = () => {
 
 	return (
 		<div>
+			<div className="my-2">
+        <Link replace to="/readings" className="btn btn-sm btn-outline-dark">
+        	<i className="fa fa-arrow-left mx-1"></i>
+        	Back
+        </Link>
+      </div>
 			<div className="container my-4">
         <Link replace to="/readings/new" className="btn btn-sm btn-primary">
         	<i className="fa fa-plus-circle mx-1"></i>
@@ -34,23 +41,12 @@ const Reading = () => {
 					<h4>
 						Glucose Reading
 					</h4>
-					<div className="row">
-						<div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 " key={id}>
-			  			<div className="border rounded p-3 m-2">
-				  		  <span>
-				    			{created_at}
-				  				<Link replace to={`/readings/${id}/edit`} className="mx-2">
-					        	<i className="fa fa-edit mx-1"></i>
-					        </Link>
-				    		</span>
-			    			<h2>
-			    				{level} 
-				        </h2>
-				        {' '}
-			    			mg/dl
-				    	</div>
-			    	</div>
-					</div>
+					<SingleReading
+						id={id}
+    				level={level}
+    				created_at={created_at}
+    				key={id}
+    			/>
 				</div>
 			)}
 		</div>

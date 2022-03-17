@@ -5,6 +5,8 @@ import Readings from '../components/Readings/Readings'
 import EditReading from '../components/Readings/EditReading'
 import NewReading from '../components/Readings/NewReading'
 import Reading from '../components/Readings/Reading'
+import 'react-date-range/dist/styles.css';
+import 'react-date-range/dist/theme/default.css';
 
 const AppRouter = () => (
   <Router>

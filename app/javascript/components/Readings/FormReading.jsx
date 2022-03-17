@@ -38,7 +38,6 @@ export default function FormReading (
 	    	setApiLoading(false);
 	    })
 	    .catch((data) => {
-	    	console.log('error', data);
 	    	setApiLoading(false);
 	    })
   	}
@@ -70,7 +69,6 @@ export default function FormReading (
             setMessage(`Your Sugar Reading ${formFor}ed Sucessfully`);
             setMessageType('success');
             setTimeout(() => {
-              console.log('Hello, World!')
               navigate('/readings');
             }, 800);
           }
