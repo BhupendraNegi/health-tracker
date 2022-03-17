@@ -45,8 +45,9 @@ const Reading = () => {
 				    		</span>
 			    			<h2>
 			    				{level} 
-
 				        </h2>
+				        {' '}
+			    			mg/dl
 				    	</div>
 			    	</div>
 					</div>

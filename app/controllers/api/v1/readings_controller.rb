@@ -5,7 +5,8 @@ module Api
 
 		  def index
 		    readings = current_user.readings
-		    render json: ReadingSerializer.new(readings).serialized_json
+
+		    render json: details_of_readings(readings)
 		  end
 
 		  def show
@@ -53,6 +54,16 @@ module Api
 
 	  		def reading_params
 	  			params.fetch(:reading, {}).permit(:level)
+	  		end
+
+	  		def details_of_readings(readings)
+		  		serialized_readings = ReadingSerializer.new(readings).as_json
+			    reading_details = {
+			    	maximum: readings&.maximum(:level),
+			    	minimum: readings&.minimum(:level),
+			    	average: readings&.average(:level)&.round(2)
+			    }
+			    serialized_readings.merge(reading_details)
 	  		end
 
 		end
