@@ -89,7 +89,7 @@ export default function FormReading (
     <>
       { !apiLoading && (
       	<>
-	        <AvForm action={actionPath} id="alias_college_form" className="w-25" onSubmit={handleSubmit}>
+	        <AvForm action={actionPath} className="w-25" onSubmit={handleSubmit}>
 	          <AvField
 	            name="reading[level]"
 	            id="level"
@@ -101,7 +101,7 @@ export default function FormReading (
 
 	          />
 	          <Button
-	            className="btn btn-elitmus-blue mx-2"
+	            className="btn btn-secondary"
 	            type="submit"
 	          >
 	            {formFor}

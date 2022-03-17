@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import { DateRangePicker } from 'react-date-range';
+import { AvForm } from 'availity-reactstrap-validation';
+import { Button } from 'reactstrap';
 import AverageReading from './AverageReading';
 import SingleReading from './SingleReading';
 
@@ -11,30 +13,43 @@ const Readings = () => {
 	const [maximum, setMaximum] = useState(0)
 	const [average, setAverage] = useState(0)
 	const [apiResponse, setApiResponse] = useState(false);
-	const [state, setState] = useState([
-	  {
-	    startDate: new Date(),
-	    endDate: new Date(),
-	    key: 'selection'
-	  }
-	]);
-
+	const [dateRange, setDateRange] = useState([{ startDate: new Date(), endDate: new Date() }]);
 
   useEffect(() => {
-    axios.get('/api/v1/readings.json')
+    axios.get('/api/v1/readings')
     .then((resp) => {
     	setReadings(resp.data.data);
     	setAverage(resp.data.average);
     	setMinimum(resp.data.minimum);
     	setMaximum(resp.data.maximum);
     	setApiResponse(true);
-    	console.log(state);
+    	console.log(dateRange);
     })
     .catch((data) => {
     	console.log('error', data);
     	setApiResponse(false);
     })
   }, []);
+
+
+  const handleSubmit = (event, errors, data) => {
+    event.persist();
+    if (errors.length === 0) {
+	    axios.get('/api/v1/readings', { params: { dateRange } })
+	    .then((resp) => {
+	    	setReadings(resp.data.data);
+	    	setAverage(resp.data.average);
+	    	setMinimum(resp.data.minimum);
+	    	setMaximum(resp.data.maximum);
+	    	setApiResponse(true);
+	    	console.log(dateRange);
+	    })
+	    .catch((data) => {
+	    	console.log('error', data);
+	    	setApiResponse(false);
+	    })
+    }
+  };
 
 
   const reading_levels = readings.map( (reading, index) => {
@@ -70,25 +85,38 @@ const Readings = () => {
       <div className="row">
 				<div className="col-xs-12 col-sm-12 col-md-6 col-lg-6">
 		      <DateRangePicker
-					  onChange={item => setState([item.selection])}
+					  onChange={item => setDateRange([item.selection])}
 					  showSelectionPreview={true}
 					  moveRangeOnFirstSelection={false}
 					  months={1}
-					  ranges={state}
+					  ranges={dateRange}
 					  direction="horizontal"
 					  preventSnapRefocus={true}
 					  calendarFocus="backwards"
 					/>
 				</div>
-				{ apiResponse && (
-					<div className="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-						<AverageReading
-						  minimum={minimum}
-	  					maximum={maximum}
-	  					average={average}
-	  				/>
-	  			</div>
-	  		)}
+				<div className="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+					<div className="row mb-2">
+						<AvForm action="/api/v1/readings" onSubmit={handleSubmit}>
+		          <Button
+		            className="btn btn-success"
+		            type="submit"
+		          >
+		            Get Report
+		          </Button>
+		        </AvForm>
+					</div>
+					{ apiResponse && (
+						<div className="row">
+							<AverageReading
+							  minimum={minimum}
+		  					maximum={maximum}
+		  					average={average}
+		  				/>
+		  			</div>
+		  		)}
+	  		</div>
+
 			</div>
 			{ apiResponse && (
 				<div className="container">

@@ -5,6 +5,10 @@ module Api
 
 		  def index
 		    readings = current_user.readings
+		    puts "*"*100
+		    aub = params[:dateRange]
+		    puts aub.class
+		    puts aub[0]
 
 		    render json: details_of_readings(readings)
 		  end
