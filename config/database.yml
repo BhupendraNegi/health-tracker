@@ -20,8 +20,7 @@ default: &default
 development:
   <<: *default
   database: health_tracker_development
-  username: postgres
-  password:
+  username: health_tracker
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -29,8 +28,7 @@ development:
 test:
   <<: *default
   database: health_tracker_test
-  username: postgres
-  password:
+  username: health_tracker
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -55,5 +53,5 @@ test:
 production:
   <<: *default
   database: health_tracker_production
-  username: postgres
+  username: health_tracker
   password: <%= ENV['HEALTH_TRACKER_DATABASE_PASSWORD'] %>
