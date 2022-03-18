@@ -55,5 +55,5 @@ test:
 production:
   <<: *default
   database: health_tracker_production
-  # username: health_tracker
-  # password: <%= ENV['HEALTH_TRACKER_DATABASE_PASSWORD'] %>
+  username: postgres
+  password: <%= ENV['HEALTH_TRACKER_DATABASE_PASSWORD'] %>
