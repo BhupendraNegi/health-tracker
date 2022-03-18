@@ -118,7 +118,9 @@ const Readings = () => {
 		            className="btn btn-success"
 		            type="submit"
 		          >
-		            Get Report
+
+		            Show Report
+		           	<i className="fa fa-line-chart mx-2"></i>
 		          </Button>
 		        </AvForm>
 					</div>
