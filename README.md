@@ -1,6 +1,6 @@
 # README
 
-#### Application
+### Application
 An app to track your sugar levels
 
 ![Image of Home Page](https://github.com/BhupendraNegi/health-tracker/blob/main/app/assets/images/home_page.png)
@@ -10,7 +10,7 @@ An app to track your sugar levels
 
 
 
-#### Setup
+### Setup
 Things you may want to cover:
 
 * Ruby version: 2.7
@@ -21,12 +21,17 @@ Things you may want to cover:
 * Setup
 
 `bundle install`
+
 `yarn install`
+
 `rake db:setup`
+
 `rake db:migrate`
+
 `rails s`
 
 * How to run the test suite
 
 `bundle exec rspec spec/controllers`
+
 `bundle exec rspec spec/models`
