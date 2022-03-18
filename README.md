@@ -1,22 +1,32 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+#### Application
+An app to track your sugar levels
 
+![Image of Home Page](https://github.com/BhupendraNegi/health-tracker/blob/main/app/assets/images/home_page.png)
+
+
+![Image of Report](https://github.com/BhupendraNegi/health-tracker/blob/main/app/assets/images/report.png)
+
+
+
+#### Setup
 Things you may want to cover:
 
-* Ruby version
+* Ruby version: 2.7
 
-* System dependencies
+* Rails version: 6.1
 
-* Configuration
 
-* Database creation
+* Setup
 
-* Database initialization
+`bundle install`
+`yarn install`
+`rake db:setup`
+`rake db:migrate`
+`rails s`
 
 * How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
+`bundle exec rspec spec/controllers`
+`bundle exec rspec spec/models`
