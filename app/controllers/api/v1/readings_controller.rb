@@ -5,9 +5,13 @@ module Api
 
 		  def index
 		    if params[:dateRange].present?
+		    	date_range = JSON.parse params[:dateRange]
 		    	readings = current_user
 		    							.readings
-		    							.date_wise_details(JSON.parse params[:dateRange])
+		    							.date_wise_details(
+		    								date_range['startDate'].to_date,
+		    								date_range['endDate'].to_date
+		    							)
 		    							.order(created_at: :desc)
 		    	render json: details_of_readings(readings)
 		    else
