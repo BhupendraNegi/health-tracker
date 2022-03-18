@@ -12,7 +12,13 @@ class Reading < ApplicationRecord
 
   scope :of_date, -> (date) { where("DATE(created_at) = ?", date) }
 
-  scope :date_wise_details, -> (start_date, end_date) { where("DATE(created_at) >= ? AND DATE(created_at) <= ?", start_date, end_date) }
+  scope :date_wise_details, -> (start_date, end_date) {
+    where(
+      "DATE(created_at) >= ? AND DATE(created_at) <= ?",
+      start_date,
+      end_date
+    )
+  }
 
   def check_max_daily_limit
     unless Reading.where(user_id: self.user&.id).of_date(Date.today).count < MAX_DAILY_LIMIT

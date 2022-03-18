@@ -20,6 +20,10 @@ RSpec.describe Reading, type: :model do
     expect(reading2).to_not be_valid
   end
 
+  it "belongs to user" do
+    expect(Reading.reflect_on_association(:user).macro).to eq :belongs_to
+  end
+
   it "return readings for a given date" do
     reading2 = create(:reading, user: @user1, created_at: Time.zone.now.yesterday)
     reading3 = create(:reading, user: @user1, created_at: Time.zone.now)

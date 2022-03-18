@@ -23,4 +23,8 @@ RSpec.describe User, type: :model do
     user2 = build(:user, email: nil)
     expect(user2).to_not be_valid
   end
+
+  it "has many readings" do
+    expect(User.reflect_on_association(:readings).macro).to eq :has_many
+  end
 end
