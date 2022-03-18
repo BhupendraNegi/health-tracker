@@ -1,5 +1,7 @@
 # README
 
+[VISIT WEBSITE: sweetyhealthapp.herokuapp.com](https://sweetyhealthapp.herokuapp.com/)
+
 ### Application
 An app to track your sugar levels
 
@@ -20,18 +22,22 @@ Things you may want to cover:
 
 * Setup
 
-`bundle install`
+```
+bundle install
 
-`yarn install`
+yarn install
 
-`rake db:setup`
+rake db:setup
 
-`rake db:migrate`
+rake db:migrate
 
-`rails s`
+rails s
+```
 
 * How to run the test suite
 
-`bundle exec rspec spec/controllers`
+```
+bundle exec rspec spec/controllers
 
-`bundle exec rspec spec/models`
+bundle exec rspec spec/models
+```
