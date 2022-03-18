@@ -25,7 +25,6 @@ const Readings = () => {
   useEffect(() => {
     axios.get('/api/v1/readings')
     .then((resp) => {
-    	console.log(resp.data)
     	if (resp.data.message) {
     		setApiResponse(false);
     	}
@@ -57,8 +56,8 @@ const Readings = () => {
 	    	setAverage(resp.data.average);
 	    	setMinimum(resp.data.minimum);
 	    	setMaximum(resp.data.maximum);
-	    	setApiResponse(true);
-	    	console.log(dateTimeRange);
+		    setApiResponse(true);
+		    console.log(readings);
 	    })
 	    .catch((data) => {
 	    	console.log('error', data);
@@ -126,11 +125,22 @@ const Readings = () => {
 					</div>
 					{ apiResponse && (
 						<div className="row">
-							<AverageReading
-							  minimum={minimum}
-		  					maximum={maximum}
-		  					average={average}
-		  				/>
+							{ readings.length === 0 ? (
+									<div className="container d-flex justify-content-center mt-2">
+			              <div className={`alert alert-info`} role="alert">
+			                No Glucose Readings Found
+			              </div>
+			            </div>
+								) : (
+									<AverageReading
+									  minimum={minimum}
+				  					maximum={maximum}
+				  					average={average}
+				  				/>
+								)
+
+							}
+
 		  			</div>
 		  		)}
 	  		</div>
