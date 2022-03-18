@@ -4,13 +4,15 @@ module Api
 			before_action :authenticate_user!
 
 		  def index
-		    readings = current_user.readings
-		    puts "*"*100
-		    aub = params[:dateRange]
-		    puts aub.class
-		    puts aub[0]
-
-		    render json: details_of_readings(readings)
+		    if params[:dateRange].present?
+		    	readings = current_user
+		    							.readings
+		    							.date_wise_details(JSON.parse params[:dateRange])
+		    							.order(created_at: :desc)
+		    	render json: details_of_readings(readings)
+		    else
+		    	render json: { message: 'Please select a Date' }
+		    end
 		  end
 
 		  def show

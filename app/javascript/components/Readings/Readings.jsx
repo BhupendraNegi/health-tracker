@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import { DateRangePicker } from 'react-date-range';
+import { addDays, format } from 'date-fns';
 import { AvForm } from 'availity-reactstrap-validation';
 import { Button } from 'reactstrap';
 import AverageReading from './AverageReading';
@@ -13,17 +14,28 @@ const Readings = () => {
 	const [maximum, setMaximum] = useState(0)
 	const [average, setAverage] = useState(0)
 	const [apiResponse, setApiResponse] = useState(false);
-	const [dateRange, setDateRange] = useState([{ startDate: new Date(), endDate: new Date() }]);
+	const [dateTimeRange, setDateTimeRange] = useState([
+	  {
+	    startDate: new Date(),
+	    endDate: new Date(),
+	    key: 'selection'
+	  }
+	]);
 
   useEffect(() => {
     axios.get('/api/v1/readings')
     .then((resp) => {
-    	setReadings(resp.data.data);
-    	setAverage(resp.data.average);
-    	setMinimum(resp.data.minimum);
-    	setMaximum(resp.data.maximum);
-    	setApiResponse(true);
-    	console.log(dateRange);
+    	console.log(resp.data)
+    	if (resp.data.message) {
+    		setApiResponse(false);
+    	}
+    	else {
+	    	setReadings(resp.data.data);
+	    	setAverage(resp.data.average);
+	    	setMinimum(resp.data.minimum);
+	    	setMaximum(resp.data.maximum);
+	    	setApiResponse(true);
+	    }
     })
     .catch((data) => {
     	console.log('error', data);
@@ -35,6 +47,10 @@ const Readings = () => {
   const handleSubmit = (event, errors, data) => {
     event.persist();
     if (errors.length === 0) {
+    	const dateRange = {
+    		startDate: format(dateTimeRange[0].startDate, 'yyyy/MM/dd'),
+    		endDate: format(dateTimeRange[0].endDate, 'yyyy/MM/dd'),
+    	}
 	    axios.get('/api/v1/readings', { params: { dateRange } })
 	    .then((resp) => {
 	    	setReadings(resp.data.data);
@@ -42,7 +58,7 @@ const Readings = () => {
 	    	setMinimum(resp.data.minimum);
 	    	setMaximum(resp.data.maximum);
 	    	setApiResponse(true);
-	    	console.log(dateRange);
+	    	console.log(dateTimeRange);
 	    })
 	    .catch((data) => {
 	    	console.log('error', data);
@@ -85,11 +101,11 @@ const Readings = () => {
       <div className="row">
 				<div className="col-xs-12 col-sm-12 col-md-6 col-lg-6">
 		      <DateRangePicker
-					  onChange={item => setDateRange([item.selection])}
+					  onChange={item => {setDateTimeRange([item.selection])}}
 					  showSelectionPreview={true}
 					  moveRangeOnFirstSelection={false}
 					  months={1}
-					  ranges={dateRange}
+					  ranges={dateTimeRange}
 					  direction="horizontal"
 					  preventSnapRefocus={true}
 					  calendarFocus="backwards"
