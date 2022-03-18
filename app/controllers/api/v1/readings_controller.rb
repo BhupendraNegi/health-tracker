@@ -26,6 +26,7 @@ module Api
 		  end
 
 		  def new
+		  	render json: {}
 		  end
 
 		  def create
