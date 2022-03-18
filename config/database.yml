@@ -52,6 +52,6 @@ test:
 #
 production:
   <<: *default
-  database: health_tracker_production
+  database: <%= ENV['DATABASE_URL'] %>
   username: health_tracker
   password: <%= ENV['HEALTH_TRACKER_DATABASE_PASSWORD'] %>
